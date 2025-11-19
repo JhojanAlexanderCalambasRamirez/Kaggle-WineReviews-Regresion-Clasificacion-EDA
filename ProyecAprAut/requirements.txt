@@ -1,43 +1,40 @@
-# =============================================================================
-# WINE QUALITY PREDICTOR - DEPENDENCIAS DEL PROYECTO
-# =============================================================================
-# Python 3.10+
-#
-# Instalación:
-#   pip install -r requirements.txt
-#
-# O con conda:
-#   conda install --file requirements.txt
-# =============================================================================
-
 # --- Core Data Science ---
-pandas>=1.5.0
-numpy>=1.23.0
+pandas==2.2.2
+numpy==1.26.4
 
 # --- Machine Learning ---
-scikit-learn>=1.2.0
+scikit-learn==1.5.2
+scipy==1.13.1
+category-encoders==2.6.3
+lightgbm==4.3.0
+xgboost==2.1.1
 
 # --- Natural Language Processing ---
 nltk>=3.8.0
 
 # --- Visualización ---
-matplotlib>=3.6.0
+matplotlib==3.9.0
 seaborn>=0.12.0
+plotly==5.22.0
 wordcloud>=1.9.0
 
 # --- Explicabilidad ---
 lime>=0.2.0.1
+eli5==0.13.0
+shap==0.45.1
 
 # --- Interfaz Gráfica ---
 customtkinter>=5.0.0
 packaging>=21.0
 
 # --- Utilidades ---
-joblib>=1.2.0
+joblib==1.4.2
+openpyxl==3.1.5
+python-dotenv==1.0.1
 
-# --- Recursos NLTK (descargar después de instalar) ---
-# Ejecutar en Python:
-# >>> import nltk
-# >>> nltk.download('stopwords')
-# >>> nltk.download('wordnet')
-# >>> nltk.download('omw-1.4')
+# --- APIs de IA (Opcionales - instala solo la que uses) ---
+# Descomenta la que vayas a usar:
+# openai>=1.0.0              # Para GPT-4, GPT-3.5 (de pago)
+# google-generativeai>=0.3.0  # Para Gemini (GRATIS hasta 60 req/min)
+# anthropic>=0.7.0           # Para Claude (de pago)
+groq>=0.4.0                # Para Llama/Mixtral (GRATIS - RECOMENDADO)

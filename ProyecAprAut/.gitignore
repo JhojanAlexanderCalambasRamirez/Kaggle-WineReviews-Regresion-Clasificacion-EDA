@@ -152,3 +152,4 @@ coverage.xml
 .pylintrc
 
 nul
+.env
