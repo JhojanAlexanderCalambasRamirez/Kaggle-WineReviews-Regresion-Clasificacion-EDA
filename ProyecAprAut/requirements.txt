@@ -1,0 +1,43 @@
+# =============================================================================
+# WINE QUALITY PREDICTOR - DEPENDENCIAS DEL PROYECTO
+# =============================================================================
+# Python 3.10+
+#
+# Instalación:
+#   pip install -r requirements.txt
+#
+# O con conda:
+#   conda install --file requirements.txt
+# =============================================================================
+
+# --- Core Data Science ---
+pandas>=1.5.0
+numpy>=1.23.0
+
+# --- Machine Learning ---
+scikit-learn>=1.2.0
+
+# --- Natural Language Processing ---
+nltk>=3.8.0
+
+# --- Visualización ---
+matplotlib>=3.6.0
+seaborn>=0.12.0
+wordcloud>=1.9.0
+
+# --- Explicabilidad ---
+lime>=0.2.0.1
+
+# --- Interfaz Gráfica ---
+customtkinter>=5.0.0
+packaging>=21.0
+
+# --- Utilidades ---
+joblib>=1.2.0
+
+# --- Recursos NLTK (descargar después de instalar) ---
+# Ejecutar en Python:
+# >>> import nltk
+# >>> nltk.download('stopwords')
+# >>> nltk.download('wordnet')
+# >>> nltk.download('omw-1.4')
