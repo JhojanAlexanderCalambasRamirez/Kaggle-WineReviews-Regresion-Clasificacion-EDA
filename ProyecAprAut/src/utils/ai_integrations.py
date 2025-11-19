@@ -106,32 +106,23 @@ class AIFeedbackGenerator:
         pos_str = ", ".join([f"'{p}' ({w:.2f})" for p, w in positivos[:5]])
         neg_str = ", ".join([f"'{p}' ({w:.2f})" for p, w in negativos[:5]])
 
-        prompt = f"""Eres un sommelier profesional experto en análisis de vinos. Un sistema de Machine Learning ha analizado una reseña de vino y necesitas generar un feedback detallado y profesional.
+        prompt = f"""Eres un sommelier profesional. Analiza este vino de forma CONCISA y DIRECTA.
 
-**DATOS DEL ANÁLISIS:**
-- Puntuación predicha: {score:.1f}/100
-- Reseña original: "{texto_original}"
+**DATOS:**
+- Puntuación: {score:.1f}/100
+- Reseña: "{texto_original}"
+- Factores positivos: {pos_str if positivos else "Ninguno"}
+- Factores negativos: {neg_str if negativos else "Ninguno"}
 
-**FACTORES POSITIVOS (palabras que AUMENTARON el puntaje):**
-{pos_str if positivos else "Ninguno identificado"}
-
-**FACTORES NEGATIVOS (palabras que REDUJERON el puntaje):**
-{neg_str if negativos else "Ninguno identificado"}
-
-**INSTRUCCIONES:**
-1. Genera un análisis profesional de 3-4 párrafos cortos
-2. Usa lenguaje técnico pero accesible de sommelier
-3. Explica POR QUÉ esas palabras afectan la calidad (basándote en enología real)
-4. Incluye:
-   - Apertura con contexto de la puntuación
-   - Análisis de características positivas
-   - Análisis de posibles debilidades (si las hay)
-   - Recomendaciones de maridaje o servicio
+**INSTRUCCIONES ESTRICTAS:**
+1. Escribe SOLO 2 párrafos cortos (máximo 120 palabras total)
+2. Párrafo 1: Evaluación general + principales características identificadas
+3. Párrafo 2: Recomendación breve (maridaje o momento de consumo)
+4. Sé directo, sin rodeos ni información excesiva
 5. NO uses emojis
-6. Máximo 300 palabras
-7. Tono: Profesional pero cálido
+6. Lenguaje profesional pero accesible
 
-Genera el análisis ahora:"""
+Genera el análisis CONCISO ahora:"""
 
         return prompt
 
@@ -175,7 +166,7 @@ Genera el análisis ahora:"""
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,
-            max_tokens=400
+            max_tokens=200
         )
         return response.choices[0].message.content.strip()
 
@@ -204,7 +195,7 @@ Genera el análisis ahora:"""
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,
-            max_tokens=400
+            max_tokens=200
         )
         return response.choices[0].message.content.strip()
 
