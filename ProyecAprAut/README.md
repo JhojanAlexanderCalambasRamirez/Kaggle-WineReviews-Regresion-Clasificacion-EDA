@@ -1,197 +1,184 @@
-# 🍷 Wine Quality Predictor - NLP & Machine Learning
+# Wine Quality Predictor - NLP & Machine Learning
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.2+-orange.svg)](https://scikit-learn.org/)
 [![NLTK](https://img.shields.io/badge/NLTK-3.8+-green.svg)](https://www.nltk.org/)
-[![License](https://img.shields.io/badge/License-Academic-purple.svg)]()
 
-> **Sistema inteligente de predicción de calidad de vinos mediante procesamiento de lenguaje natural (NLP) y redes neuronales.**
+> Sistema inteligente de predicción de calidad de vinos mediante Procesamiento de Lenguaje Natural (NLP), Redes Neuronales y Agente Sommelier con IA.
 
-Predice la puntuación de calidad de un vino (escala 80-100) basándose únicamente en la descripción textual de sommeliers, con explicabilidad completa mediante LIME.
-
----
-
-## 📋 Tabla de Contenidos
-
-- [Características](#-características)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Instalación](#-instalación)
-- [Uso Rápido](#-uso-rápido)
-- [Modelos Implementados](#-modelos-implementados)
-- [Dataset](#-dataset)
-- [Metodología](#-metodología)
-- [Resultados](#-resultados)
-- [Equipo](#-equipo)
-- [Licencia](#-licencia)
+Predice la puntuación de calidad de un vino (escala 80-100) basándose en la descripción textual de sommeliers, con explicabilidad mediante LIME y feedback profesional generado por IA.
 
 ---
 
-## ✨ Características
+## Características Principales
 
-- 🤖 **3 Modelos de ML Comparados**: Ridge Regression, Random Forest, MLP Neural Network
-- 📊 **Análisis Exploratorio Completo**: Visualizaciones de distribución y nubes de palabras
-- 🔍 **Explicabilidad con LIME**: Comprende qué palabras influyen en cada predicción
-- 🖥️ **Interfaz Gráfica Moderna**: GUI profesional con CustomTkinter
-- 📝 **Preprocesamiento NLP Avanzado**: Regex, Stopwords, Lematización
-- 💾 **Modelos Persistentes**: Guarda y carga modelos entrenados
-- ⚡ **Procesamiento Asíncrono**: UI responsiva con threading
+- **Modelo MLP Neural Network** con MAE de ~1.37 puntos
+- **Agente Sommelier Inteligente** con integración de múltiples APIs de IA (Groq, Gemini, OpenAI, Claude)
+- **Explicabilidad con LIME** - Comprende qué palabras influyen en cada predicción
+- **Interfaz Gráfica Moderna** con CustomTkinter
+- **Preprocesamiento NLP Avanzado** (Regex, Stopwords, Lematización)
+- **Arquitectura Modular** con configuración centralizada
 
 ---
 
-## 📁 Estructura del Proyecto
+## Instalación Rápida
+
+### 1. Crear Entorno Virtual
+
+**Opción A: Conda (Recomendado)**
+```bash
+conda create --name ProyeVino python=3.10 -y
+conda activate ProyeVino
+conda install pandas numpy matplotlib seaborn scikit-learn nltk -y
+```
+
+**Opción B: pip**
+```bash
+python -m venv .venv
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # Linux/Mac
+```
+
+### 2. Instalar Dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Descargar Recursos NLTK
+
+```bash
+python -c "import nltk; nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('omw-1.4')"
+```
+
+---
+
+## Configuración de IA (Opcional pero Recomendado)
+
+Para obtener feedback profesional generado por IA en lugar de frases predefinidas:
+
+### 1. Obtener API Key de Groq (GRATIS)
+
+1. Ve a: https://console.groq.com/keys
+2. Crea una cuenta gratis
+3. Clic en "Create API Key"
+4. Copia la clave (empieza con `gsk_...`)
+
+### 2. Configurar Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```bash
+GROQ_API_KEY=gsk_tu_clave_aqui
+AI_PROVIDER=groq
+USE_AI_FEEDBACK=true
+```
+
+### 3. Instalar Cliente de Groq
+
+```bash
+pip install groq
+```
+
+### Proveedores Alternativos
+
+| Proveedor | Costo | Velocidad | Variable en .env |
+|-----------|-------|-----------|------------------|
+| **Groq** (Llama 3.3) | GRATIS | Muy rápido | `GROQ_API_KEY` |
+| **Gemini** (Google) | GRATIS* | Rápido | `GEMINI_API_KEY` |
+| **OpenAI** (GPT-4) | De pago | Medio | `OPENAI_API_KEY` |
+| **Claude** (Haiku) | De pago | Rápido | `ANTHROPIC_API_KEY` |
+
+*Gemini gratis hasta 60 req/min
+
+Para desactivar IA y volver al agente básico:
+```bash
+USE_AI_FEEDBACK=false
+```
+
+---
+
+## Uso
+
+### Ejecutar la Aplicación
+
+**Windows:**
+```bash
+run_prophet.bat
+```
+
+**Manualmente:**
+```bash
+python src/gui/wine_ai_prophet.py
+```
+
+### Flujo de Trabajo
+
+1. **Entrenar Modelo** (si no existe):
+   - Ve a la pestaña "ENTRENAMIENTO"
+   - Clic en "INICIAR ENTRENAMIENTO"
+   - Espera a que termine (proceso automático)
+
+2. **Analizar Vinos**:
+   - Ve a la pestaña "PREDICCIÓN & SOMMELIER"
+   - Escribe una reseña de vino en inglés
+   - Clic en "CONSULTAR AL AGENTE SOMMELIER"
+   - Obtén puntuación y análisis profesional
+
+### Ejemplos de Reseñas
+
+**Alta Calidad (esperado: 90+):**
+```
+This wine is elegant, complex and has rich tannins with a long finish.
+```
+
+**Calidad Media (esperado: 85-90):**
+```
+A decent wine with fruity notes and moderate acidity.
+```
+
+**Baja Calidad (esperado: 80-85):**
+```
+This wine is flat, watery and lacks character.
+```
+
+---
+
+## Estructura del Proyecto
 
 ```
 ProyecAprAut/
-├── 📂 src/                          # Código fuente
-│   ├── models/                      # Scripts de entrenamiento
-│   │   ├── train_basic.py          # Entrenamiento básico (3 modelos)
-│   │   ├── train_with_metrics.py   # Con guardado de métricas
-│   │   └── train_mlp_interactive.py # CLI interactivo (MLP)
-│   ├── gui/                         # Interfaz gráfica
-│   │   └── wine_predictor_gui.py   # Aplicación GUI principal
-│   └── utils/                       # Utilidades (futuro)
+├── src/
+│   ├── gui/
+│   │   └── wine_ai_prophet.py      # Aplicación principal
+│   ├── utils/
+│   │   ├── nlp_processor.py        # Limpieza NLP
+│   │   ├── sommelier_agent.py      # Agente básico
+│   │   └── ai_integrations.py      # Integraciones con APIs de IA
+│   └── models/
+│       └── (scripts de entrenamiento legacy)
 │
-├── 📂 data/                         # Datasets
-│   ├── raw/                         # Datos originales
-│   │   ├── winemag-data-130k-v2.csv      # 130k reseñas
-│   │   ├── winemag-data-130k-v2.json     # Versión JSON
-│   │   └── winemag-data_first150k.csv    # 150k reseñas
-│   └── processed/                   # Datos procesados (generados)
+├── config/
+│   └── settings.py                  # Configuración centralizada
 │
-├── 📂 docs/                         # Documentación
-│   ├── INSTALACION.md              # Guía de instalación
-│   ├── test_cases.txt              # Casos de prueba manuales
-│   ├── images/                     # Imágenes de documentación
-│   └── resultados/                 # Gráficos y resultados
-│       ├── 1_distribucion_puntos.png
-│       ├── 2_nube_palabras.png
-│       ├── 3_comparacion_modelos.png
-│       ├── explicacion_*.html
-│       └── modelo_vino_entrenado.pkl
+├── data/
+│   └── raw/
+│       ├── winemag-data-130k-v2.csv # Dataset principal (130k reseñas)
+│       └── winemag-data_first150k.csv
 │
-├── 📂 sistema_vino/                # Modelos entrenados
-│   ├── cerebro_vino.pkl           # Modelo GUI
-│   └── cerebro_vino_mlp.pkl       # Modelo MLP CLI
+├── sistema_vino/
+│   └── cerebro_vino_mlp.pkl         # Modelo entrenado
 │
-├── 📂 notebooks/                   # Jupyter Notebooks (futuro)
-├── 📂 config/                      # Archivos de configuración
-│
-├── requirements.txt               # Dependencias Python
-├── .gitignore                     # Archivos ignorados por Git
-└── README.md                      # Este archivo
+├── .env                             # Variables de entorno (API keys)
+├── requirements.txt                 # Dependencias
+└── run_prophet.bat                  # Ejecutor Windows
 ```
 
 ---
 
-## 🚀 Instalación
+## Metodología
 
-### **Opción 1: Conda (Recomendado)**
-
-```bash
-# 1. Crear entorno virtual
-conda create --name ProyeVino python=3.10 -y
-conda activate ProyeVino
-
-# 2. Instalar dependencias principales
-conda install pandas numpy matplotlib seaborn scikit-learn nltk -y
-
-# 3. Instalar dependencias adicionales
-pip install lime wordcloud customtkinter packaging
-
-# 4. Descargar recursos NLTK
-python -c "import nltk; nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('omw-1.4')"
-```
-
-### **Opción 2: pip**
-
-```bash
-# 1. Crear entorno virtual
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# 2. Instalar dependencias
-pip install -r requirements.txt
-
-# 3. Descargar recursos NLTK
-python -c "import nltk; nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('omw-1.4')"
-```
-
----
-
-## 🎯 Uso Rápido
-
-### **1. Interfaz Gráfica (GUI) - Recomendado**
-
-```bash
-python src/gui/wine_predictor_gui.py
-```
-
-**Características:**
-- Pestañas de Predicción y Entrenamiento
-- Resultados visuales con semáforo de colores
-- Explicabilidad en tiempo real
-- Ventana de ayuda integrada
-
-![GUI Screenshot](docs/images/gui_preview.png)
-
-### **2. CLI Interactivo (Consola)**
-
-```bash
-python src/models/train_mlp_interactive.py
-```
-
-**Opciones del menú:**
-1. Entrenar modelo nuevo
-2. Usar modelo existente (predicción interactiva)
-3. Salir
-
-### **3. Entrenamiento con Visualizaciones**
-
-```bash
-python src/models/train_with_metrics.py
-```
-
-Genera:
-- ✅ Gráficos guardados en `docs/resultados/`
-- ✅ Modelo entrenado en `.pkl`
-- ✅ Explicaciones HTML
-
----
-
-## 🧠 Modelos Implementados
-
-| Modelo | Tipo | MAE (Error Promedio) | Velocidad | Ubicación |
-|--------|------|----------------------|-----------|-----------|
-| **Ridge Regression** | Lineal | ~1.50 puntos | ⚡ Muy rápido | `train_basic.py` |
-| **Random Forest** | Ensamble | ~1.42 puntos | 🐢 Lento | `train_basic.py` |
-| **MLP Neural Network** | Deep Learning | ~1.37 puntos ⭐ | ⚖️ Medio | `train_mlp_interactive.py` |
-
-**🏆 Mejor Modelo:** MLP (Multilayer Perceptron) - Red neuronal con capas ocultas de 50 neuronas.
-
----
-
-## 📊 Dataset
-
-**Fuente:** Wine Magazine Reviews
-**Tamaño:** 130,000 - 150,000 reseñas de vinos
-
-**Columnas principales:**
-- `description`: Texto descriptivo del sommelier (entrada del modelo)
-- `points`: Puntuación 80-100 (objetivo a predecir)
-- `country`, `variety`, `winery`: Metadatos
-
-**Ejemplo:**
-```
-Descripción: "This wine is elegant, complex and has a rich finish."
-Puntuación Real: 92 puntos
-Predicción del Modelo: 91.5 puntos
-```
-
----
-
-## 🔬 Metodología
-
-### **Pipeline de NLP**
+### Pipeline NLP
 
 1. **Limpieza de Texto:**
    - Conversión a minúsculas
@@ -204,64 +191,82 @@ Predicción del Modelo: 91.5 puntos
 
 3. **Vectorización:**
    - TF-IDF con 3000 features
-   - Penaliza palabras comunes, prioriza únicas
+   - Prioriza palabras únicas sobre comunes
 
-4. **Entrenamiento:**
-   - Split 80/20 (train/test)
-   - Evaluación con MAE (Mean Absolute Error)
+4. **Modelo:**
+   - MLP (Multilayer Perceptron) Neural Network
+   - Arquitectura: Input (3000) → Hidden (50) → Hidden (50) → Output (1)
+   - MAE: ~1.37 puntos
 
 5. **Explicabilidad:**
-   - LIME para interpretar predicciones
-   - Identifica palabras clave positivas/negativas
+   - LIME identifica palabras clave positivas/negativas
+   - Genera pesos de influencia por palabra
 
-### **Arquitectura MLP**
-
-```
-Input (3000 features TF-IDF)
-    ↓
-Hidden Layer 1 (50 neuronas)
-    ↓
-Hidden Layer 2 (50 neuronas)
-    ↓
-Output (1 neurona - puntaje)
-```
+6. **Feedback con IA:**
+   - Convierte datos técnicos en análisis de sommelier profesional
+   - Soporta múltiples proveedores (Groq, Gemini, OpenAI, Claude)
+   - Fallback al agente básico si falla la API
 
 ---
 
-## 📈 Resultados
+## Dataset
 
-### **Visualizaciones Generadas**
+**Fuente:** Wine Magazine Reviews
+**Tamaño:** 130,000 reseñas de vinos profesionales
+**Escala:** 80-100 puntos
 
-1. **Distribución de Puntuaciones:**
-   ![Distribución](docs/resultados/1_distribucion_puntos.png)
-
-2. **Nube de Palabras:**
-   ![Word Cloud](docs/resultados/2_nube_palabras.png)
-
-3. **Comparación de Modelos:**
-   ![Comparación](docs/resultados/3_comparacion_modelos.png)
-
-### **Ejemplos de Predicciones**
-
-**🟢 Alta Calidad (90+):**
-```
-Entrada: "This is truly elegant and complex with a rich finish."
-Predicción: 93.2 puntos
-Palabras clave: elegant (+0.48), complex (+0.42), rich (+0.35)
-```
-
-**🔴 Baja Calidad (80-85):**
-```
-Entrada: "This wine is flat, watery, and lacks character."
-Predicción: 81.5 puntos
-Palabras clave: flat (-0.52), watery (-0.38), lacks (-0.29)
-```
+**Columnas:**
+- `description`: Texto descriptivo del sommelier (entrada del modelo)
+- `points`: Puntuación 80-100 (objetivo a predecir)
 
 ---
 
-## 👥 Equipo
+## Solución de Problemas
 
-**Proyecto Final - Aprendizaje Automático**
+### Error: "Modelo no encontrado"
+```bash
+# Ve a la pestaña "ENTRENAMIENTO" y entrena el modelo
+# O verifica que existe: sistema_vino/cerebro_vino_mlp.pkl
+```
+
+### Error: "API key no encontrada"
+```bash
+# Verifica que existe el archivo .env en la raíz
+# Verifica que contiene: GROQ_API_KEY=tu_clave_aqui
+```
+
+### Error: "No module named 'groq'"
+```bash
+pip install groq
+```
+
+### Feedback muy genérico (con IA activada)
+```bash
+# En .env, aumenta la temperatura:
+AI_TEMPERATURE=0.8
+```
+
+### Error: "Rate limit exceeded"
+- **Groq:** Espera 1 minuto (límite: 30 req/min gratis)
+- **Gemini:** Espera 1 minuto (límite: 60 req/min gratis)
+
+---
+
+## Tecnologías
+
+- **Python 3.10+**
+- **Machine Learning:** Scikit-Learn, MLP Neural Network
+- **NLP:** NLTK, TF-IDF Vectorization
+- **Explicabilidad:** LIME
+- **IA:** OpenAI, Google Gemini, Anthropic Claude, Groq
+- **GUI:** CustomTkinter
+- **Configuración:** python-dotenv
+
+---
+
+## Equipo de Desarrollo
+
+Proyecto Final - Aprendizaje Automático
 
 | Nombre | ID Estudiante |
 |--------|---------------|
@@ -273,55 +278,15 @@ Palabras clave: flat (-0.52), watery (-0.38), lacks (-0.29)
 
 ---
 
-## 📝 Casos de Prueba
-
-Consulta [docs/test_cases.txt](docs/test_cases.txt) para frases de prueba clasificadas por calidad esperada:
-
-- 🟢 Alta calidad (90+): palabras como "elegant", "complex", "rich"
-- 🟡 Calidad media (85-90): mezcla de características
-- 🔴 Baja calidad (80-85): palabras como "flat", "bitter", "watery"
-
----
-
-## 📚 Documentación Adicional
-
-- [Guía de Instalación Detallada](docs/INSTALACION.md)
-- [Explicaciones HTML de Predicciones](docs/resultados/)
-- [Modelos Entrenados](sistema_vino/)
-
----
-
-## 🔧 Tecnologías Utilizadas
-
-- **Python 3.10+**
-- **Machine Learning:** Scikit-Learn
-- **NLP:** NLTK, TF-IDF
-- **Explicabilidad:** LIME
-- **Visualización:** Matplotlib, Seaborn, WordCloud
-- **GUI:** CustomTkinter
-- **Serialización:** Joblib
-
----
-
-## 📄 Licencia
+## Licencia
 
 Proyecto académico desarrollado con fines educativos.
 
 ---
 
-## 🤝 Contribuciones
+## Contacto y Soporte
 
-Este es un proyecto académico finalizado. Para consultas o sugerencias, contactar al equipo de desarrollo.
-
----
-
-## 📧 Contacto
-
-Para más información sobre este proyecto, consulta la documentación en la carpeta [docs/](docs/).
-
----
-
-**⭐ Si este proyecto te resulta útil, considera darle una estrella en GitHub!**
+Para casos de prueba, consulta: [docs/test_cases.txt](docs/test_cases.txt)
 
 ---
 

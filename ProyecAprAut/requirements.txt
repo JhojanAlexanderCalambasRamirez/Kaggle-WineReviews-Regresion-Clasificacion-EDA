@@ -32,9 +32,5 @@ joblib==1.4.2
 openpyxl==3.1.5
 python-dotenv==1.0.1
 
-# --- APIs de IA (Opcionales - instala solo la que uses) ---
-# Descomenta la que vayas a usar:
-# openai>=1.0.0              # Para GPT-4, GPT-3.5 (de pago)
-# google-generativeai>=0.3.0  # Para Gemini (GRATIS hasta 60 req/min)
-# anthropic>=0.7.0           # Para Claude (de pago)
-groq>=0.4.0                # Para Llama/Mixtral (GRATIS - RECOMENDADO)
+# --- APIs de IA 
+groq>=0.4.0               
