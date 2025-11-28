@@ -227,4 +227,4 @@ Incluir en el documento final:
 
 ---
 
-**Nota:** Este documento cumple con el requisito de **"Preprocesamiento de datos utilizando al menos tres metodologías diferentes"** del proyecto académico.
+
